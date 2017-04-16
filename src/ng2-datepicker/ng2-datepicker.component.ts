@@ -50,6 +50,8 @@ export interface IDatePickerOptions {
   selectYearText?: string;
   todayText?: string;
   clearText?: string;
+  containerCssClass?: string;
+  inputCssClass?: string;
 }
 
 export class DatePickerOptions {
@@ -64,6 +66,8 @@ export class DatePickerOptions {
   selectYearText?: string;
   todayText?: string;
   clearText?: string;
+  containerCssClass?: string;
+  inputCssClass?: string;
 
   constructor(obj?: IDatePickerOptions) {
     this.autoApply = (obj && obj.autoApply === true) ? true : false;
@@ -77,6 +81,8 @@ export class DatePickerOptions {
     this.selectYearText = obj && obj.selectYearText ? obj.selectYearText : 'Select Year';
     this.todayText = obj && obj.todayText ? obj.todayText : 'Today';
     this.clearText = obj && obj.clearText ? obj.clearText : 'Clear';
+    this.containerCssClass = obj && obj.containerCssClass ? obj.containerCssClass : '';
+    this.inputCssClass = obj && obj.inputCssClass ? obj.inputCssClass : '';
   }
 }
 
@@ -113,6 +119,7 @@ export class DatePickerComponent implements ControlValueAccessor, OnInit {
   opened: boolean;
   currentDate: moment.Moment;
   days: CalendarDate[];
+  weekdays: string[];
   years: number[];
   yearPicker: boolean;
   scrollOptions: SlimScrollOptions;
@@ -128,6 +135,7 @@ export class DatePickerComponent implements ControlValueAccessor, OnInit {
     this.currentDate = Moment();
     this.options = this.options || {};
     this.days = [];
+    this.weekdays = [];
     this.years = [];
     this.date = new DateModel({
       day: null,
@@ -192,6 +200,7 @@ export class DatePickerComponent implements ControlValueAccessor, OnInit {
       this.maxDate = null;
     }
 
+    this.generateWeekdays();
     this.generateYears();
     this.generateCalendar();
     this.outputEvents.emit({ type: 'default', data: 'init' });
@@ -319,6 +328,10 @@ export class DatePickerComponent implements ControlValueAccessor, OnInit {
       this.yearPicker = false;
       this.generateCalendar();
     });
+  }
+
+  generateWeekdays() {
+    this.weekdays = moment.weekdays().map(weekday => weekday[0]);
   }
 
   generateYears() {
