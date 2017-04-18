@@ -1,9 +1,31 @@
-$blue: #366AAB
-$black: #000000
-$white: #FFFFFF
-$gray: #ced4da
-$gray-dark: #343a40
-$red: #fa5252
+$ng2-datepicker-color: #fff !default
+$ng2-datepicker-date-color: #2196f3 !default
+$ng2-datepicker-disabled: #444 !default
+
+$ng2-datepicker-active-background: $ng2-datepicker-date-color !default
+$ng2-datepicker-active-color: $ng2-datepicker-color !default
+
+$ng2-datepicker-primary: #000000 !default
+$ng2-datepicker-hover: rgba(0, 0, 0, 0.3) !default
+
+$ng2-datepicker-top-background: $ng2-datepicker-primary !default
+$ng2-datepicker-top-color: $ng2-datepicker-color !default
+
+$ng2-datepicker-input-border: 1px solid #ced4da !default
+$ng2-datepicker-input-placeholder: #999 !default
+$ng2-datepicker-input-padding: 5px 10px !default
+
+$ng2-datepicker-icon-color: $ng2-datepicker-color !default
+
+$ng2-datepicker-container: #222628 !default
+$ng2-datepicker-spacing: 1em !default
+
+// locaoffice
+$ng2-datepicker-top-background: #d62635
+$ng2-datepicker-icon-color: #222
+$ng2-datepicker-color: $ng2-datepicker-icon-color
+$ng2-datepicker-container: #eee
+$ng2-datepicker-date-color: #03A9F4
 
 =unselectable
   -webkit-touch-callout: none
@@ -17,168 +39,144 @@ $red: #fa5252
   position: relative
 
   .datepicker-input-container
-    display: inline-block
-    background: transparent
+    display: flex
+    align-items: center
 
     .datepicker-input
-      display: inline-block
-      width: 160px
-      margin-right: 10px
+      margin-right: $ng2-datepicker-spacing
       border: none
-      outline: none
-      border-bottom: 1px solid $gray
-      font-size: 14px
-      color: $black
+      border-bottom: $ng2-datepicker-input-border
+      padding: $ng2-datepicker-input-padding
       text-align: center
+      flex: 1
+      width: 100%
+
       &::-webkit-input-placeholder
-        color: $gray-dark
+        color: $ng2-datepicker-input-placeholder
+
       &::-moz-placeholder
-        color: $gray-dark
+        color: $ng2-datepicker-input-placeholder
+
       &:-ms-input-placeholder
-        color: $gray-dark
+        color: $ng2-datepicker-input-placeholder
+
       &:-moz-placeholder
-        color: $gray-dark
+        color: $ng2-datepicker-input-placeholder
 
     .datepicker-input-icon
       display: inline-block
-      i
-        cursor: pointer
+      cursor: pointer
 
+      i
         svg
-          width: 15px
-          height: 15px
-          g
-            g
-              fill: $black
+          width: $ng2-datepicker-spacing
+          height: $ng2-datepicker-spacing
 
   .datepicker-calendar
     +unselectable
-    width: 250px
-    top: 40px
-    position: absolute
-    z-index: 99
-    background: $white
-    border-bottom-left-radius: 4px
-    border-bottom-right-radius: 4px
-    box-shadow: 0 2px 5px rgba($black, 0.5)
+    width: 250px;
+    top: 100%;
+    position: absolute;
+    z-index: 99;
+    box-shadow: 0 2px 5px rgba($ng2-datepicker-primary, 0.5)
+    color: $ng2-datepicker-color
 
     .datepicker-calendar-top
-      width: 100%
+      display: flex
+      flex-direction: column
+      justify-content: center
+      color: $ng2-datepicker-top-color
       height: 80px
-      background: $black
-      display: inline-block
-      position: relative
+      background-color: $ng2-datepicker-top-background
 
       .year-title
-        display: block
-        margin-top: 12px
-        color: $white
-        font-size: 28px
-        text-align: center
+        font-size: 2em;
+        line-height: 1.2;
 
       button
-        width: 200px
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: block
-        margin: 0 auto
-        color: $white
-        text-transform: uppercase
-        background: transparent
-        border: none
+        color: currentColor;
+        text-transform: uppercase;
+        background: transparent;
+        border: none;
+        cursor: pointer;
         outline: none
-        font-size: 12px
-        cursor: pointer
-        position: relative
 
         svg
           display: block
           float: left
-          width: 15px
-          height: 15px
+          width: $ng2-datepicker-spacing
+          height: $ng2-datepicker-spacing
           position: absolute
           top: 2px
           left: 12px
-          g
-            fill: $white
-            path
-              fill: $white
 
       .close
         position: absolute
-        top: 5px
-        right: 5px
-        font-size: 20px
-        color: $white
+        top: $ng2-datepicker-spacing
+        right: $ng2-datepicker-spacing
+        font-size: 10px
+        color: $ng2-datepicker-color
         cursor: pointer
 
         svg
-          width: 12px
-          height: 12px
-          g
-            path
-              fill: $white
+          width: $ng2-datepicker-spacing
+          height: $ng2-datepicker-spacing
 
     .datepicker-calendar-container
-      display: inline-block
-      width: 100%
-      padding: 10px
-      background: #222628
+      padding: $ng2-datepicker-spacing
+      background: $ng2-datepicker-container
 
       .datepicker-calendar-month-section
         width: 100%
         display: flex
         justify-content: space-between
-        font-size: 14px
-        color: #DDDDDD
         text-transform: uppercase
+
         i
           cursor: pointer
-          &:first-child
-            margin-left: 12px
-          &:last-child
-            margin-right: 12px
+          *
+            fill: $ng2-datepicker-icon-color
 
       .datepicker-calendar-day-names
-        width: 230px
+        width: 220px
         margin-top: 10px
-        display: inline-block
-        border: 1px solid transparent
+        clear: both
 
         span
-          font-size: 12px
-          display: block
           float: left
           width: calc(100% / 7)
-          text-align: center
 
       .datepicker-calendar-days-container
-        width: 230px
-        margin-top: 5px
         display: inline-block
-        border: 1px solid transparent
+        text-align: left;
 
         .day
-          display: flex
+          display: inline-flex
           justify-content: center
           align-items: center
-          float: left
-          font-size: 14px
-          color: #8E8E8E
+          color: $ng2-datepicker-date-color
           width: calc(100% / 7)
-          height: 33px
-          text-align: center
-          border-radius: 50%
+          height: $ng2-datepicker-spacing * 2
           cursor: pointer
-          &:hover:not(.disabled), &.selected
-            background: #222628
-            border: 1px solid #366AAB
-            border-radius: 4px
-          &.disabled
-            pointer-events: none
+          border-radius: 15%
+
+          &:hover:not(.disabled)
+            background: $ng2-datepicker-hover
+
           &.today
-            color: #366AAB
+            font-weight: bolder
+            border: 1px solid
+
+          &.disabled
+            color: $ng2-datepicker-disabled
+            pointer-events: none
+
+          &.selected
+            color: $ng2-datepicker-active-color
+            background: $ng2-datepicker-active-background
+            font-weight: bolder
+            &:hover
+              background: darken($ng2-datepicker-active-background, 5)
 
       .datepicker-calendar-years-container
         width: 100%
@@ -189,17 +187,14 @@ $red: #fa5252
           justify-content: center
           align-items: center
           float: left
-          font-size: 14px
-          color: #8E8E8E
+          color: $ng2-datepicker-active-color
           width: calc(100% / 4)
           height: 50px
           text-align: center
-          border-radius: 50%
+          border-radius: 15%
           cursor: pointer
           &:hover, &.selected
-            background: #222628
-            border: 1px solid #366AAB
-            border-radius: 4px
+            background: $ng2-datepicker-hover
 
       .datepicker-buttons
         width: 235px
@@ -210,35 +205,25 @@ $red: #fa5252
           width: 100%
           outline: none
           display: inline-block
-          border: 1px solid $blue
-          background: #099268
-          color: $white
-          margin-right: 5px
-          border-radius: 5px
+          background: $ng2-datepicker-primary
+          color: $ng2-datepicker-color
           cursor: pointer
           text-align: center
           padding: 5px 10px
-          border: 1px solid #366AAB
-          border-radius: 4px
+          border-radius: 15%
+          outline: none
 
           &.u-is-primary
-            background: #366AAB
+            background: $ng2-datepicker-primary
             &:active
-              background: #222628
+              background: darken($ng2-datepicker-primary, 5)
 
           &.u-is-secondary
-            background: #222628
-            color: #099268
+            background: $ng2-datepicker-color
             &:active
-              background: #366AAB
-              color: #DDDDDD
-            &:hover
-              color: #FFFFFF
+              background: darken($ng2-datepicker-color, 5)
+
   svg
     display: block
-    width: 20px
-    height: 20px
-    g
-      fill: $white
-      g
-        fill: $white
+    width: $ng2-datepicker-spacing
+    height: $ng2-datepicker-spacing
