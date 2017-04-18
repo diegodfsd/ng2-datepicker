@@ -253,41 +253,48 @@ export class DatePickerComponent implements ControlValueAccessor, OnInit {
     const date: moment.Moment = Moment(this.currentDate);
     const month = date.month();
     const year = date.year();
-    let n = 1;
-    const firstWeekDay = (this.options.firstWeekdaySunday) ? date.date(2).day() : date.date(1).day();
+    const firstDay: moment.Moment = Moment(this.currentDate).startOf('month');
+    let firstWeekDay = (this.options.firstWeekdaySunday) ? firstDay.day() : (firstDay.day() - 1);
 
-    if (firstWeekDay !== 1) {
-      n -= (firstWeekDay + 6) % 7;
+    if (firstWeekDay === -1) {
+      firstWeekDay = 6;
     }
+
+    const firstDayCalendar = firstDay.add(-firstWeekDay, 'days');
+    const totalDays = (Moment(date).endOf('month').date() + firstWeekDay);
+
+    let n = 0;
 
     this.days = [];
     const selectedDate: moment.Moment = this.date.momentObj;
-    for (let i = n; i <= date.endOf('month').date(); i += 1) {
-      const currentDate: moment.Moment = Moment(`${i}.${month + 1}.${year}`, 'DD.MM.YYYY');
-      const today: boolean = (Moment().isSame(currentDate, 'day') && Moment().isSame(currentDate, 'month')) ? true : false;
-      const selected: boolean = (selectedDate && selectedDate.isSame(currentDate, 'day')) ? true : false;
+
+    for (let i = n; i < totalDays; i += 1) {
+      const iDate: moment.Moment = Moment(firstDayCalendar).add(i, 'days');
+      const today: boolean = (Moment().isSame(iDate, 'day') && Moment().isSame(iDate, 'month')) ? true : false;
+      const selected: boolean = (selectedDate && selectedDate.isSame(iDate, 'day')) ? true : false;
+      const selectable: boolean = (iDate.month() === Moment(this.currentDate).month());
       let betweenMinMax = true;
 
       if (this.minDate !== null) {
         if (this.maxDate !== null) {
-          betweenMinMax = currentDate.isBetween(this.minDate, this.maxDate, 'day', '[]') ? true : false;
+          betweenMinMax = iDate.isBetween(this.minDate, this.maxDate, 'day', '[]') ? true : false;
         } else {
-          betweenMinMax = currentDate.isBefore(this.minDate, 'day') ? false : true;
+          betweenMinMax = iDate.isBefore(this.minDate, 'day') ? false : true;
         }
       } else {
         if (this.maxDate !== null) {
-          betweenMinMax = currentDate.isAfter(this.maxDate, 'day') ? false : true;
+          betweenMinMax = iDate.isAfter(this.maxDate, 'day') ? false : true;
         }
       }
 
       const day: CalendarDate = {
-        day: i > 0 ? i : null,
-        month: i > 0 ? month : null,
-        year: i > 0 ? year : null,
-        enabled: i > 0 ? betweenMinMax : false,
-        today: i > 0 && today ? true : false,
-        selected: i > 0 && selected ? true : false,
-        momentObj: currentDate
+        day: selectable ? iDate.date() : null,
+        month: month,
+        year: year,
+        enabled: selectable ? betweenMinMax : false,
+        today: selectable && today ? true : false,
+        selected: selectable && selected ? true : false,
+        momentObj: iDate
       };
 
       this.days.push(day);
@@ -332,11 +339,14 @@ export class DatePickerComponent implements ControlValueAccessor, OnInit {
 
   generateWeekdays() {
     this.weekdays = moment.weekdays().map(weekday => weekday[0]);
+    if (!this.options.firstWeekdaySunday) {
+      this.weekdays = this.weekdays.slice(1).concat(this.weekdays[0]);
+    }
   }
 
   generateYears() {
-    const date: moment.Moment = Moment(this.minDate) || Moment().year(Moment().year() - 40);
-    const toDate: moment.Moment = Moment(this.maxDate) || Moment().year(Moment().year() + 40);
+    const date: moment.Moment = !!this.minDate ? Moment(this.minDate) : Moment().year(Moment().year() - 40);
+    const toDate: moment.Moment = !!this.maxDate ? Moment(this.maxDate) : Moment().year(Moment().year() + 40);
     const years = toDate.year() - date.year();
 
     for (let i = 0; i < years; i++) {

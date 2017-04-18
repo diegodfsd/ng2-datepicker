@@ -14,6 +14,7 @@ export class AppComponent {
     this.options = new DatePickerOptions({
                 style: 'normal',
                 autoApply: true,
+                firstWeekdaySunday: false,
                 minDate: new Date()
             });
   }
