@@ -26,6 +26,7 @@ $ng2-datepicker-icon-color: #222
 $ng2-datepicker-color: $ng2-datepicker-icon-color
 $ng2-datepicker-container: #eee
 $ng2-datepicker-date-color: #03A9F4
+$ng2-datepicker-container-display: block;
 
 =unselectable
   -webkit-touch-callout: none
@@ -35,7 +36,7 @@ $ng2-datepicker-date-color: #03A9F4
   user-select: none
 
 .datepicker-container
-  display: inline-block
+  display: $ng2-datepicker-container-display
   position: relative
 
   .datepicker-input-container
