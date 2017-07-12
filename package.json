@@ -1,6 +1,6 @@
 {
   "name": "ng2-datepicker",
-  "version": "1.8.11",
+  "version": "1.8.12",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
