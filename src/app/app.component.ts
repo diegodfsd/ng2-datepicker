@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { FormGroup, FormBuilder, FormControl, FormArray, Validators } from '@angular/forms';
 import { DateModel, DatePickerOptions } from '../ng2-datepicker/ng2-datepicker.component';
 
 @Component({
@@ -9,13 +9,24 @@ import { DateModel, DatePickerOptions } from '../ng2-datepicker/ng2-datepicker.c
 export class AppComponent {
   date: DateModel;
   options: DatePickerOptions;
+  dateForm: FormGroup;
 
-  constructor() {
+  constructor(private fb: FormBuilder) {
     this.options = new DatePickerOptions({
                 style: 'normal',
                 autoApply: true,
-                firstWeekdaySunday: false,
-                minDate: new Date()
+                firstWeekdaySunday: true,
+                minDate: new Date(),
+                disableSaturday: true,
+                disableSunday: true
             });
+
+    this.createForm();
+  }
+
+  createForm(): void {
+    this.dateForm = this.fb.group({
+      'date': ['', Validators.required]
+    });
   }
 }

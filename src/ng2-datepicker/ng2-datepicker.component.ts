@@ -47,6 +47,8 @@ export interface IDatePickerOptions {
   initialDate?: Date;
   firstWeekdaySunday?: boolean;
   format?: string;
+  disableSaturday?: boolean;
+  disableSunday?: boolean;
   selectYearText?: string;
   todayText?: string;
   clearText?: string;
@@ -61,6 +63,8 @@ export class DatePickerOptions {
   initialDate?: Date;
   firstWeekdaySunday?: boolean;
   format?: string;
+  disableSaturday?: boolean;
+  disableSunday?: boolean;
   selectYearText?: string;
   todayText?: string;
   clearText?: string;
@@ -74,6 +78,8 @@ export class DatePickerOptions {
     this.initialDate = obj && obj.initialDate ? obj.initialDate : null;
     this.firstWeekdaySunday = obj && obj.firstWeekdaySunday ? obj.firstWeekdaySunday : false;
     this.format = obj && obj.format ? obj.format : 'YYYY-MM-DD';
+    this.disableSaturday = obj && obj.disableSaturday ? obj.disableSaturday : false;
+    this.disableSunday = obj && obj.disableSunday ? obj.disableSunday : false;
     this.selectYearText = obj && obj.selectYearText ? obj.selectYearText : 'Select Year';
     this.todayText = obj && obj.todayText ? obj.todayText : 'Today';
     this.clearText = obj && obj.clearText ? obj.clearText : 'Clear';
@@ -163,7 +169,9 @@ export class DatePickerComponent implements ControlValueAccessor, OnInit {
   }
 
   set value(date: DateModel) {
-    if (!date) { return; }
+    // if (!date) { 
+    //   return;
+    //  }
     this.date = date;
     this.onChangeCallback(date);
   }
@@ -261,12 +269,16 @@ export class DatePickerComponent implements ControlValueAccessor, OnInit {
 
     this.days = [];
     const selectedDate: moment.Moment = this.date.momentObj;
+    const now = Moment();
 
     for (let i = n; i < totalDays; i += 1) {
       const iDate: moment.Moment = Moment(firstDayCalendar).add(i, 'days');
-      const today: boolean = (Moment().isSame(iDate, 'day') && Moment().isSame(iDate, 'month')) ? true : false;
-      const selected: boolean = (selectedDate && selectedDate.isSame(iDate, 'day')) ? true : false;
+      const today: boolean = (now.isSame(iDate, 'day') && now.isSame(iDate, 'month'));
+      const selected: boolean = (!!selectedDate && selectedDate.isSame(iDate, 'day'));
+      const weekDay = iDate.day();
       const selectable: boolean = (iDate.month() === Moment(this.currentDate).month());
+      const clickable: boolean = (!this.options.disableSaturday || (this.options.disableSaturday && weekDay !== 6)) && 
+                                 (!this.options.disableSunday || (this.options.disableSunday && weekDay !== 0));
       let betweenMinMax = true;
 
       if (this.minDate !== null) {
@@ -285,9 +297,9 @@ export class DatePickerComponent implements ControlValueAccessor, OnInit {
         day: selectable ? iDate.date() : null,
         month: month,
         year: year,
-        enabled: selectable ? betweenMinMax : false,
-        today: selectable && today ? true : false,
-        selected: selectable && selected ? true : false,
+        enabled: selectable ? clickable && betweenMinMax : false,
+        today: selectable && today,
+        selected: selectable && selected,
         momentObj: iDate
       };
 
@@ -319,13 +331,13 @@ export class DatePickerComponent implements ControlValueAccessor, OnInit {
 
     setTimeout(() => {
       const date: moment.Moment = this.currentDate.year(year);
-      this.value = {
-        day: date.format('DD'),
-        month: date.format('MM'),
-        year: date.format('YYYY'),
-        formatted: date.format(this.options.format),
-        momentObj: date
-      };
+      // this.value = {
+      //   day: date.format('DD'),
+      //   month: date.format('MM'),
+      //   year: date.format('YYYY'),
+      //   formatted: date.format(this.options.format),
+      //   momentObj: date
+      // };
       this.yearPicker = false;
       this.generateCalendar();
     });
@@ -350,7 +362,9 @@ export class DatePickerComponent implements ControlValueAccessor, OnInit {
   }
 
   writeValue(date: DateModel) {
-    if (!date) { return; }
+    // if (!date) {
+    //   return;
+    //  }
     this.date = date;
   }
 
@@ -381,6 +395,7 @@ export class DatePickerComponent implements ControlValueAccessor, OnInit {
     this.opened = !this.opened;
     if (this.opened) {
       this.onOpen();
+      this.generateCalendar();
     }
 
     this.outputEvents.emit({ type: 'default', data: 'opened' });
