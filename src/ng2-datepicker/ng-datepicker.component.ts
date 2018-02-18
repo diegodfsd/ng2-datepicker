@@ -98,18 +98,18 @@ export interface CalendarDate {
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => DatePickerComponent),
+  useExisting: forwardRef(() => NgDatepickerComponent),
   multi: true
 };
 
 
 @Component({
-  selector: 'ng2-datepicker',
-  templateUrl: './ng2-datepicker.component.html',
-  styleUrls: ['./ng2-datepicker.component.sass'],
+  selector: 'ng-datepicker',
+  templateUrl: './ng-datepicker.component.html',
+  styleUrls: ['./ng-datepicker.component.sass'],
   providers: [CALENDAR_VALUE_ACCESSOR],
 })
-export class DatePickerComponent implements ControlValueAccessor, OnInit {
+export class NgDatepickerComponent implements ControlValueAccessor, OnInit {
   @Input() options: DatePickerOptions;
   @Input() inputEvents: EventEmitter<{ type: string, data: string | DateModel }>;
   @Output() outputEvents: EventEmitter<{ type: string, data: string | DateModel }>;

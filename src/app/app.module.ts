@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { DatePickerModule } from '../ng2-datepicker/ng2-datepicker.module';
+import { NgDatepickerModule } from '../ng2-datepicker/ng-datepicker.module';
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -13,7 +13,7 @@ import { AppComponent } from './app.component';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    DatePickerModule
+    NgDatepickerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

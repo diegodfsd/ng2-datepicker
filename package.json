@@ -1,6 +1,6 @@
 {
   "name": "ng2-datepicker",
-  "version": "1.8.13",
+  "version": "2.0.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -35,9 +35,9 @@
     "url": "https://github.com/jkuri/ng2-datepicker/issues"
   },
   "homepage": "https://github.com/jkuri/ng2-datepicker#readme",
-  "main": "./lib-dist/ng2-datepicker.module.js",
-  "module": "./lib-dist/ng2-datepicker.module.js",
-  "types": "./lib-dist/ng2-datepicker.module.d.ts",
+  "main": "./lib-dist/ng-datepicker.module.js",
+  "module": "./lib-dist/ng-datepicker.module.js",
+  "types": "./lib-dist/ng-datepicker.module.d.ts",
   "peerDependencies": {
     "@angular/common": ">=4.0.0 <=5.2.5",
     "@angular/core": ">=4.0.0 <=5.2.5",

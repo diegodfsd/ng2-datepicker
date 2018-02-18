@@ -21,18 +21,18 @@ npm install ng2-datepicker --save
 
 ```ts
 // app.module.ts
-import { DatePickerModule } from 'ng2-datepicker';
+import { NgDatepickerModule } from 'ng-datepicker';
 
 @NgModule({
   ...
-  imports: [ DatePickerModule ]
+  imports: [ NgDatepickerModule ]
   ...
 })
 export class AppModule { }
 
 // app.component.ts
 import { Component } from '@angular/core';
-import { DatePickerOptions, DateModel } from 'ng2-datepicker';
+import { DatePickerOptions, DateModel } from 'ng-datepicker';
 
 @Component({
   selector: 'app-root',
@@ -48,10 +48,10 @@ export class AppComponent {
 }
 
 // app.component.html
-<ng2-datepicker [options]="options" [(ngModel)]="date"></ng2-datepicker>
+<ng-datepicker [options]="options" [(ngModel)]="date"></ng-datepicker>
 ```
 
-For more info about options please see [this](https://github.com/jkuri/ng2-datepicker/blob/master/src/ng2-datepicker/ng2-datepicker.component.ts#L41-L53).
+For more info about options please see [this](https://github.com/jkuri/ng2-datepicker/blob/master/src/ng2-datepicker/ng-datepicker.component.ts#L41-L53).
 
 ## Run Included Demo
 
