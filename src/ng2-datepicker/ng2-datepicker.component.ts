@@ -9,7 +9,7 @@ import {
   EventEmitter,
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { SlimScrollOptions } from 'ng2-slimscroll';
+import { ISlimScrollOptions } from 'ngx-slimscroll';
 import * as moment from 'moment';
 
 const Moment: any = (<any>moment).default || moment;
@@ -122,7 +122,7 @@ export class DatePickerComponent implements ControlValueAccessor, OnInit {
   weekdays: string[];
   years: number[];
   yearPicker: boolean;
-  scrollOptions: SlimScrollOptions;
+  scrollOptions: ISlimScrollOptions;
 
   minDate: moment.Moment | any;
   maxDate: moment.Moment | any;

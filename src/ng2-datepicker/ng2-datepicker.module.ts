@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { SlimScrollModule } from 'ng2-slimscroll';
+import { NgSlimScrollModule } from 'ngx-slimscroll';
 
 import { DatePickerComponent } from './ng2-datepicker.component';
 export { DatePickerOptions, DateModel } from './ng2-datepicker.component';
@@ -14,11 +14,11 @@ export { DatePickerOptions, DateModel } from './ng2-datepicker.component';
   imports: [
     CommonModule,
     FormsModule,
-    SlimScrollModule
+    NgSlimScrollModule
   ],
   exports: [
     DatePickerComponent,
-    SlimScrollModule,
+    NgSlimScrollModule,
     FormsModule
   ]
 })
