@@ -7,7 +7,7 @@
     "start": "ng serve",
     "build": "npm run css && ./node_modules/.bin/ngc -p tsconfig.build.json && rollup -c",
     "build:cli": "ng build --aot",
-    "build:lib": "nglb --rootDir src/ng2-datepicker --outDir lib-dist",
+    "build:lib": "nglb --rootDir src/ng-datepicker --outDir lib-dist",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",

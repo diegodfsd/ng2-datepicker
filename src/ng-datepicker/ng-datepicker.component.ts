@@ -38,22 +38,6 @@ export class DateModel {
   }
 }
 
-export interface IDatePickerOptions {
-  autoApply?: boolean;
-  style?: 'normal' | 'big' | 'bold';
-  locale?: string;
-  minDate?: Date;
-  maxDate?: Date;
-  initialDate?: Date;
-  firstWeekdaySunday?: boolean;
-  format?: string;
-  disableSaturday?: boolean;
-  disableSunday?: boolean;
-  selectYearText?: string;
-  todayText?: string;
-  clearText?: string;
-}
-
 export class DatePickerOptions {
   autoApply?: boolean;
   style?: 'normal' | 'big' | 'bold';
@@ -69,7 +53,7 @@ export class DatePickerOptions {
   todayText?: string;
   clearText?: string;
 
-  constructor(obj?: IDatePickerOptions) {
+  constructor(obj?: any) {
     this.autoApply = (obj && obj.autoApply === true) ? true : false;
     this.style = obj && obj.style ? obj.style : 'normal';
     this.locale = obj && obj.locale ? obj.locale : 'en';

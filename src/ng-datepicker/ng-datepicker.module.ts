@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { NgSlimScrollModule } from 'ngx-slimscroll';
 
 import { NgDatepickerComponent } from './ng-datepicker.component';
+export { DatePickerOptions, DateModel } from './ng-datepicker.component';
 
 @NgModule({
   declarations: [ NgDatepickerComponent ],

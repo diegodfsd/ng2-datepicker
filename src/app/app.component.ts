@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, FormArray, Validators } from '@angular/forms';
-import { DateModel, DatePickerOptions } from '../ng2-datepicker/ng-datepicker.component';
+import { DateModel, DatePickerOptions } from '../ng-datepicker/ng-datepicker.component';
 
 @Component({
   selector: 'app-root',
